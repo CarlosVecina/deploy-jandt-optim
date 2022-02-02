@@ -70,7 +70,7 @@ class OptimExp(Optim, DataImpactSerializer):
             return finished, num_candidates_needed, callback_time_minutes
 
         total_pool = super().get_total_pool(num_remaining_in_pool ,impacted_candidates_data)
-        init_ts = super().get_init_ts(impacted_candidates_data)
+        init_ts = super().get_init_ts(now, impacted_candidates_data)
         freq_split= 18
 
         callback_time_minutes = self.frequency(freq_split, now, deadline, init_ts)

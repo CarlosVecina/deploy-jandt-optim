@@ -15,7 +15,7 @@ class OptimExp(Optim, DataImpactSerializer):
     @staticmethod
     def exponential_decay(
         a:float, b:float, N:float
-        ) -> int:
+    ) -> int:
         # a, b: exponential decay parameter
         # N: number of samples
         return (a * (1-b) ** np.arange(N)).astype(int)

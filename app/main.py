@@ -17,10 +17,10 @@ from .optims.optim_stoch_constraint import OptimStochConstraint
 
 
 logging.basicConfig(filename='log',
-                            filemode='a',
-                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                            datefmt='%H:%M:%S',
-                            level=logging.DEBUG)
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    evel=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 
@@ -87,7 +87,6 @@ def post_predict(params: ModelParams):
 
     logger.info(f"POST RESP {bool(finished)}.")
 
-    #return JSONResponse(content=pred)
     return bool(finished), int(num_candidates_needed), int(callback_time_minutes)
 
 
@@ -103,7 +102,6 @@ def post_predict(params: ModelParams):
 
     logger.info(f"POST RESP {bool(finished)}.")
 
-    #return JSONResponse(content=pred)
     return bool(finished), int(num_candidates_needed), int(callback_time_minutes)
 
 
@@ -119,7 +117,6 @@ def post_predict(params: ModelParams):
 
     logger.info(f"POST RESP {bool(finished)}.")
 
-    #return JSONResponse(content=pred)
     return bool(finished), int(num_candidates_needed), int(callback_time_minutes)
 
 

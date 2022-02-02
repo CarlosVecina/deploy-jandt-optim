@@ -41,10 +41,13 @@ class DataImpactSerializer():
         Extract the avg response time for accepted
         """
         data = pd.DataFrame(list(impact_data))
-        if (data.shape[0] >= 3) & ('notification_status' in data.columns):
-            return data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.mean(), data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.count()
-        else:
-             return default, 0
+        try:
+            if (data.shape[0] >= 3) & (len(data[data.notification_status=='ir_accepted'])):
+                return data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.mean(), data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.count()
+            else:
+                return default, 0
+        except:
+            return default, 0
 
     @staticmethod
     def get_total_contract_accepted(impact_data: list) -> int:

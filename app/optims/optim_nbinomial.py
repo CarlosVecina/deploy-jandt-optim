@@ -19,16 +19,18 @@ class OptimNegBinom(Optim, DataImpactSerializer):
     def invitation_logic_api(
         self, now, deadline, num_vacancies, num_remaining_in_pool, impacted_candidates_data
     )-> Tuple[bool, int, Optional[int]]:
-        finished = now >= deadline
-        fulfilled = (num_vacancies - super().get_total_contract_accepted(impacted_candidates_data)) <=0
-
-        if finished | fulfilled:
-            num_candidates_needed, callback_time_minutes = [0,0]
-            return finished, num_candidates_needed, callback_time_minutes
-
         post = super().get_n_first_accepted(impacted_candidates_data)
         if post>0:
             self.nbin.update(post)
+
+        finished = now >= deadline
+        fulfilled = (num_vacancies - super().get_total_contract_accepted(impacted_candidates_data)) <=0
+
+        if finished | fulfilled | (num_remaining_in_pool<=0):
+            num_candidates_needed, callback_time_minutes = [0,0]
+            return True, num_candidates_needed, callback_time_minutes
+
+
         num_candidates_needed = round(self.nbin.ppmean())
         callback_time_minutes, _ = super().get_avg_t_response_accepted(impacted_candidates_data, 7)
 

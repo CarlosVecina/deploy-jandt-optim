@@ -65,8 +65,8 @@ class OptimExp(Optim, DataImpactSerializer):
     )-> Tuple[bool, int, Optional[int]]:
         finished = now >= deadline
         fulfilled = (num_vacancies - super().get_total_contract_accepted(impacted_candidates_data)) <= 0
-        if finished | fulfilled:
-            num_candidates_needed, callback_time_minutes = [0,0]
+        if finished | fulfilled | (num_remaining_in_pool<=0):
+            num_candidates_needed, callback_time_minutes = [0, 0]
             return finished, num_candidates_needed, callback_time_minutes
 
         total_pool = super().get_total_pool(num_remaining_in_pool ,impacted_candidates_data)

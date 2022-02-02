@@ -6,30 +6,33 @@ from itertools import chain
 from numpy.random import choice
 from scipy.stats import weibull_min
 
+
 ##notification prob matrix
 NOTIFICATION_STATUS = ["ir_pending", "ir_accepted", "ir_rejected"]
-WEIGHT_ACCEPTED = .35
-WEIGHT_REJECTED = .2
-#call transition matrix
-OFFER_ACC_P = .6
+
 #transition matrix
-TRANSITION_MATRIX = pd.DataFrame([
-    ['ir_pending', 'not_in_ft', 1],
-    ['ir_accepted', 'offer_accepted', OFFER_ACC_P],
-    ['ir_accepted', 'cancelled', 1-OFFER_ACC_P],
-    ['ir_rejected', 'cancelled', 1]],
-    columns=['notification_status', 'offer_status', 'prob'])
+def build_transition_matrix(offer_acc_prob: float) -> pd.DataFrame:
+    transition_matrix = pd.DataFrame([
+        ['ir_pending', 'not_in_ft', 1],
+        ['ir_accepted', 'offer_accepted', offer_acc_prob],
+        ['ir_accepted', 'cancelled', 1-offer_acc_prob],
+        ['ir_rejected', 'cancelled', 1]],
+        columns=['notification_status', 'offer_status', 'prob'])
+    return transition_matrix
 
 
 class CaseGenerator():
-    def __init__(self, name="1"):
+    def __init__(self, name="1", w_acc=0.1, w_rej=0.1, offer_acc_prob=0.6) :
         self.name = name
         self.remaining_pool = skellam.rvs(200, 50, size=1)[0]
         self.num_vacancies = skellam.rvs(9, 2, size=1)[0]
         self.init_date, self.deadline = self.get_dates()
         self.now = self.init_date
         self.counter = 0
-        self.per_impacted_list = [{'notification_status': 'ir_accepted', 'candidate_status': 'offer_accepted', 'time_to_respond_ir_minutes': 5}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 14}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 5}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 8}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 23}]
+        self.per_impacted_list = []#[{'notification_status': 'ir_accepted', 'candidate_status': 'offer_accepted', 'time_to_respond_ir_minutes': 5}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 14}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 5}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 8}, {'notification_status': 'ir_pending', 'candidate_status': 'not_in_ft', 'time_to_respond_ir_minutes': 23}]
+        self.w_acc = w_acc
+        self.w_rej = w_rej
+        self.transition_matrix = build_transition_matrix(offer_acc_prob)
 
     def _int_uniform(self, a, b):
         return int(random.uniform(a, b))
@@ -47,11 +50,11 @@ class CaseGenerator():
             draw = choice(
                 NOTIFICATION_STATUS,
                 1,
-                p=[1-(WEIGHT_ACCEPTED+WEIGHT_REJECTED), WEIGHT_ACCEPTED, WEIGHT_REJECTED])[0]
+                p=[1-(self.w_acc+self.w_rej), self.w_acc, self.w_rej])[0]
             draw_candidate = choice(
-                TRANSITION_MATRIX[TRANSITION_MATRIX.notification_status == draw].offer_status,
+                self.transition_matrix[self.transition_matrix.notification_status == draw].offer_status,
                 1,
-                p=TRANSITION_MATRIX[TRANSITION_MATRIX.notification_status == draw].prob)[0]
+                p=self.transition_matrix[self.transition_matrix.notification_status == draw].prob)[0]
 
             n = 1     # number of samples
             k = 2.4     # shape
@@ -78,14 +81,14 @@ class CaseGenerator():
                 pass
             roll_notification = choice(
                 NOTIFICATION_STATUS, 1,
-                p=[1-(WEIGHT_ACCEPTED+WEIGHT_REJECTED),
-                WEIGHT_ACCEPTED,
-                WEIGHT_REJECTED]
+                p=[1-(self.w_acc+self.w_rej),
+                self.w_acc,
+                self.w_rej]
                 )[0]
             roll_offer = choice(
-                TRANSITION_MATRIX[TRANSITION_MATRIX.notification_status == roll_notification].offer_status,
+                self.transition_matrix[self.transition_matrix.notification_status == roll_notification].offer_status,
                 1,
-                p=TRANSITION_MATRIX[TRANSITION_MATRIX.notification_status == roll_notification].prob
+                p=self.transition_matrix[self.transition_matrix.notification_status == roll_notification].prob
                 )[0]
 
             if roll_notification == 'ir_pending':
@@ -128,7 +131,7 @@ class CaseGenerator():
             "deadline": self.deadline,
             "num_vacancies": self.num_vacancies,
             "num_remaining_in_pool": self.remaining_pool,
-            "impacted_candidates_data": batch_impacted_list
+            "impacted_candidates_data": self.per_impacted_list
         }
 
         self.counter += 1

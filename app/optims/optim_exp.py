@@ -80,7 +80,7 @@ class OptimExp(Optim, DataImpactSerializer):
         callback_time_minutes = self.frequency(freq_split, now, deadline, init_ts)
         num_candidates_needed = self.severity(total_pool, freq_split)
 
-        return False, num_candidates_needed, int(callback_time_minutes)
+        return finished, num_candidates_needed, int(callback_time_minutes)
 
 
 #print(1)

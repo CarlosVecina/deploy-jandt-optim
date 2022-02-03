@@ -23,7 +23,7 @@ class OptimNegBinom(Optim, DataImpactSerializer):
         self, now, deadline, num_vacancies, num_remaining_in_pool, impacted_candidates_data
     )-> Tuple[bool, int, Optional[int]]:
         post = super().get_n_first_accepted(impacted_candidates_data)
-        if post>0:
+        if post > 0:
             self.nbin.update(post)
 
         finished = now >= deadline

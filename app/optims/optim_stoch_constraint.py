@@ -15,7 +15,7 @@ SOLVER = 'glpk'
 
 
 class OptimStochConstraint(Optim, DataImpactSerializer):
-    def __init__(self, beta_mean, beta_var) -> None:
+    def __init__(self, beta_mean: float, beta_var: float, solver: str = SOLVER) -> None:
         self.beta_mean=beta_mean
         self.beta_var=beta_var
         self.nbin_model = NegativeBinomial(
@@ -26,7 +26,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         self.l_case_frq = []
         self.l_per_frq = [16]
         self.dist = None
-        self.solver = SOLVER
+        self.solver = solver #glpk or ipopt
 
     def __repr__(self):
         return 'Agent Stochastic Constraint'

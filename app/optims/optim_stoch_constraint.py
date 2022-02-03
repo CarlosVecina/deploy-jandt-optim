@@ -38,13 +38,12 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         model_stoch.OBJ = pyo.Objective(expr=PROFIT_VACANCY * model_stoch.x[2] - COST_SPAM * model_stoch.x[1], sense=pyo.maximize)
 
         solver = pyo.SolverFactory("glpk")
-        solver.options['tmlim'] = 10
         solution = solver.solve(model_stoch)
 
         model_stoch.solutions.store_to(solution)
         return solution['Solution'].variable['x[1]']['Value']
 
-    def boostrap(self, q:float =0.2) -> int:
+    def boostrap(self, q: float = 0.2) -> int:
         _l = []
         for _ in range(10):
             _l.append(
@@ -52,7 +51,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
                 )
         return min(1,np.quantile(_l, q))
 
-    def forget_info(self, l:list, perc:float) -> int:
+    def forget_info(self, l: list, perc: float) -> int:
         return random.sample(l,int(len(l)*(1-perc)))
 
     def frequency_exploitation(self, lose_confidence: float = 0) -> int:
@@ -68,14 +67,14 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
 
         if len(_temp_l)>=28:
             dist = distfit()
-            s = dist.fit_transform(_temp_l)
+            s = dist.fit_transform(np.array(_temp_l))
             dict_pred = dist.predict(list(range(np.max(_temp_l))))
-            return np.max(1,np.max([i for i, x in enumerate(dict_pred['y_proba'] >= .3) if x]))
+            return np.max([1, np.max([i for i, x in enumerate(dict_pred['y_proba'] >= .3) if x])])
         else:
             return int(np.median(_temp_l))
 
     def persist_list_freq(self) -> None:
-        self.l_per_frq.append(self.l_case_frq)
+        self.l_per_frq.aextendppend(self.l_case_frq)
         self.l_case_frq = []
 
     def invitation_logic_api(

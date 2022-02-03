@@ -8,8 +8,12 @@ class DataImpactSerializer():
 
     @staticmethod
     def get_init_ts(now: dt.datetime, impact_data: list) -> dt.datetime:
-        max_mins = pd.DataFrame(list(impact_data)).time_to_respond_ir_minutes.max()
-        return now + dt.timedelta(minutes= max_mins)
+        max_mins = pd.DataFrame(list(impact_data)).get('time_to_respond_ir_minutes')
+        if max_mins is not None:
+            max_mins = max_mins.max()
+            return now + dt.timedelta(minutes= max_mins)
+        else:
+            return now
 
     @staticmethod
     def get_n_first_accepted(impact_data) -> int:
@@ -19,7 +23,7 @@ class DataImpactSerializer():
         t_def = 0
         try:
             data = pd.DataFrame(list(impact_data))
-            t_def =  round(data.groupby('notification_status').notification_status.count()[0]/len(impact_data)*100)
+            t_def = round(data.groupby('notification_status').notification_status.count()[0]/len(impact_data)*100)
         except:
             pass
         return t_def
@@ -31,7 +35,7 @@ class DataImpactSerializer():
         """
         data = pd.DataFrame(list(impact_data))
         if 'notification_status' in data.columns:
-            return data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.values.astype(int)
+            return data[data.notification_status == 'ir_accepted'].time_to_respond_ir_minutes.values.astype(int)
         else:
             return [0]
 
@@ -42,8 +46,8 @@ class DataImpactSerializer():
         """
         data = pd.DataFrame(list(impact_data))
         try:
-            if (data.shape[0] >= 3) & (len(data[data.notification_status=='ir_accepted'])):
-                return data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.mean(), data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.count()
+            if (data.shape[0] >= 3) & (len(data[data.notification_status == 'ir_accepted'])):
+                return data[data.notification_status == 'ir_accepted'].time_to_respond_ir_minutes.mean(), data[data.notification_status=='ir_accepted'].time_to_respond_ir_minutes.count()
             else:
                 return default, 0
         except:

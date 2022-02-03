@@ -43,20 +43,21 @@ class OptimExp(Optim, DataImpactSerializer):
         m_init, s_init = divmod(
             (now_ts - init_ts).total_seconds(),
             60)
-        n_calls=freq_split/(t_diff/t_diff**1.05)
 
         if self.is_decay:
+            n_calls = freq_split/(t_diff/t_diff**1.05)
             trial = self.exponential_decay(t_diff*0.15, 0.15, n_calls)
             try:
-                callback_time_minutes=trial[sum(np.cumsum(trial[::-1])[::-1] > m_to_dead):][0]
+                callback_time_minutes = trial[sum(np.cumsum(trial[::-1])[::-1] > m_to_dead):][0]
             except:
-                callback_time_minutes=int(m_to_dead-1)
+                callback_time_minutes = int(m_to_dead-1)
         else:
-            trial = self.exponential_increase(t_diff*0.15, 1, n_calls)
             try:
+                n_calls = freq_split/(t_diff/t_diff**1.05)
+                trial = self.exponential_increase(t_diff*0.15, 1, n_calls)
                 callback_time_minutes = trial[sum(np.cumsum(trial) < m_init)]
             except:
-                callback_time_minutes=int(m_to_dead-1)
+                callback_time_minutes = int(m_to_dead-1)
 
         return min(m_to_dead-1, callback_time_minutes)
 

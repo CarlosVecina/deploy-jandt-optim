@@ -61,9 +61,14 @@ class CaseGenerator():
         self.per_impacted_list = e_dict['impacted_candidates_data']
 
     def set_name(self, new_name: str) -> None:
+        '''Set correlation_id first id
+        ---
+        params:
+            new_name str'''
         self.name = new_name
 
     def reset_counter(self) -> None:
+        '''Reset counter'''
         self.counter = 0
 
     def get_dates(self) -> Tuple[datetime.datetime, datetime.datetime]:
@@ -161,7 +166,7 @@ class CaseGenerator():
         '''
         self.per_impacted_list.extend(impact_list)
 
-    def generator(self, n_inv, mins):
+    def generator(self, n_inv: int, mins: int) -> dict:
         '''Main method triggering the generator. Simulates probabilistically an environment.
         ---
         params:

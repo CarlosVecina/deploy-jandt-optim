@@ -126,17 +126,21 @@ class CaseGenerator():
                 continue
             else:
                 pass
+            act_acc = 1/impact['time_to_respond_ir_minutes'] * self.w_acc
+            act_rej = 1/impact['time_to_respond_ir_minutes'] * self.w_rej
             roll_notification = choice(
                 NOTIFICATION_STATUS, 1,
-                p=[1-(self.w_acc+self.w_rej),
-                self.w_acc,
-                self.w_rej]
-                )[0]
+                p=[
+                    1-(act_acc+act_rej),
+                    act_acc,
+                    act_rej
+                ])[0]
             roll_offer = choice(
                 self.transition_matrix[self.transition_matrix.notification_status == roll_notification].offer_status,
                 1,
                 p=self.transition_matrix[self.transition_matrix.notification_status == roll_notification].prob
                 )[0]
+
 
             if roll_notification == 'ir_pending':
                 roll_mins = impact['time_to_respond_ir_minutes'] + mins

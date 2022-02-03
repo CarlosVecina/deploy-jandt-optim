@@ -11,6 +11,8 @@ from .utils import DataImpactSerializer
 
 PROFIT_VACANCY = 2000
 COST_SPAM = 20
+SOLVER = 'glpk'
+
 
 class OptimStochConstraint(Optim, DataImpactSerializer):
     def __init__(self, beta_mean, beta_var) -> None:
@@ -22,7 +24,9 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             nbin_r=1
         )
         self.l_case_frq = []
-        self.l_per_frq = [6]
+        self.l_per_frq = [16]
+        self.dist = None
+        self.solver = SOLVER
 
     def __repr__(self):
         return 'Agent Stochastic Constraint'
@@ -40,7 +44,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
 
         model_stoch.OBJ = pyo.Objective(expr=PROFIT_VACANCY * model_stoch.x[2] - COST_SPAM * model_stoch.x[1], sense=pyo.maximize)
 
-        solver = pyo.SolverFactory("glpk")
+        solver = pyo.SolverFactory(self.solver)
         solution = solver.solve(model_stoch)
 
         model_stoch.solutions.store_to(solution)
@@ -68,13 +72,16 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         _temp_l = self.l_per_frq.copy()
         _temp_l.extend(self.l_case_frq)
 
-        if len(_temp_l)>=28:
+        freq = int(np.median(_temp_l))
+        if (len(_temp_l) % 5 == 0) & (len(_temp_l) > 28) :
             dist = distfit()
-            s = dist.fit_transform(np.array(_temp_l))
-            dict_pred = dist.predict(list(range(np.max(_temp_l))))
-            return np.max([1, np.max([i for i, x in enumerate(dict_pred['y_proba'] >= .3) if x])])
-        else:
-            return int(np.median(_temp_l))
+            self.dist = dist
+        if self.dist is not None:
+            s = self.dist.fit_transform(np.array(_temp_l))
+            dict_pred = self.dist.predict(list(range(np.max(_temp_l))))
+            freq = np.max([1, np.max([i for i, x in enumerate(dict_pred['y_proba'] >= .3) if x])])
+
+        return freq
 
     def persist_list_freq(self) -> None:
         self.l_per_frq.aextendppend(self.l_case_frq)

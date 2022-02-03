@@ -16,6 +16,9 @@ class OptimNegBinom(Optim, DataImpactSerializer):
             prior_beta_var=PRIOR_BETA_VAR,
             nbin_r=1)
 
+    def __repr__(self):
+        return f'Agent Negative Binomial'
+
     def invitation_logic_api(
         self, now, deadline, num_vacancies, num_remaining_in_pool, impacted_candidates_data
     )-> Tuple[bool, int, Optional[int]]:

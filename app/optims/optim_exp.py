@@ -12,6 +12,10 @@ class OptimExp(Optim, DataImpactSerializer):
     def __init__(self, is_decay: bool) -> None:
         self.is_decay = is_decay
 
+    def __repr__(self):
+        decay_str = 'Decay' if self.is_decay else 'not Decay'
+        return f'Agent Exponential {decay_str}'
+
     @staticmethod
     def exponential_decay(
         a:float, b:float, N:float

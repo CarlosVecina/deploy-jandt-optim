@@ -24,6 +24,9 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         self.l_case_frq = []
         self.l_per_frq = [6]
 
+    def __repr__(self):
+        return 'Agent Stochastic Constraint'
+
     def stoch_optim(self) -> int:
         model_stoch = pyo.ConcreteModel()
 

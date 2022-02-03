@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from itertools import chain
 from numpy.random import choice
 from scipy.stats import skellam, weibull_min
+import copy
 
 
 ##notification prob matrix
@@ -56,7 +57,7 @@ class CaseGenerator():
         self.now = e_dict['reference_date_time']
         self.deadline = e_dict['deadline']
         self.num_vacancies = e_dict['num_vacancies']
-        self.num_remaining_in_pool = e_dict['num_remaining_in_pool']
+        self.remaining_pool = e_dict['num_remaining_in_pool']
         self.per_impacted_list = e_dict['impacted_candidates_data']
 
     def set_name(self, new_name: str) -> None:
@@ -196,3 +197,66 @@ class CaseGenerator():
 
     def online_generator():
         pass
+
+
+class ScenarioInitializer():
+    def __init__(self, n_cases):
+        self.n_cases = n_cases
+
+    def generator(self):
+        for c in range(self.n_cases):
+            case_suite = CaseGenerator(name=str(c), w_acc=0.1, w_rej=0.1, offer_acc_prob=0.6)
+            req = [True]
+            callback_time_minutes=1
+            num_candidates_needed=0
+            req = [tup for tup in case_suite.generator(n_inv=num_candidates_needed,
+                                                       mins=callback_time_minutes
+                                                      )]
+            yield req
+
+
+class ScenarioSimulator():
+    def __init__(self, opt_obj, case_obj):
+        self.opt_obj = opt_obj
+        self.case_obj = case_obj
+
+    def generator(self, initial_scenarios):
+        _l=[]
+        counter = 0
+        ii = copy.deepcopy(initial_scenarios)
+        for c in ii:
+            #print(i)
+            self.case_obj.set_name(str(counter))
+            self.case_obj.reset_counter()
+            self.case_obj.init_from_event(c[0])
+            #case_suite = CaseGenerator(str(i), w_acc=0.1, w_rej=0.1, offer_acc_prob=0.6)
+            req = [True]
+            callback_time_minutes=1
+            num_candidates_needed=0
+            counter += 1
+            while len(req) > 0:
+                # Optimizer Logic
+                req = [tup for tup in self.case_obj.generator(n_inv=num_candidates_needed,
+                                                           mins=callback_time_minutes )]
+                if len(req) > 0:
+                    #finished, num_candidates_needed, callback_time_minutes = opt_nbin.invitation_logic_api(
+                    finished, num_candidates_needed, callback_time_minutes = self.opt_obj.invitation_logic_api(
+                        now=req[0]["reference_date_time"],
+                        deadline=req[0]["deadline"],
+                        num_vacancies=req[0]["num_vacancies"],
+                        num_remaining_in_pool=req[0]["num_remaining_in_pool"],
+                        impacted_candidates_data=req[0]["impacted_candidates_data"]
+                    )
+                    req[0].update({'finished': finished})
+                    req[0].update({'num_candidates_needed': num_candidates_needed})
+                    req[0].update({'callback_time_minutes': callback_time_minutes})
+                    if len(req[0]["impacted_candidates_data"])>0:
+                        req[0].update({'total_accepted': pd.DataFrame(req[0]["impacted_candidates_data"]).candidate_status.str.contains('offer').sum()})
+                    else:
+                        req[0].update({'total_accepted':0})
+                    req[0].update({'optim': self.opt_obj})
+                _l.extend(req)
+        return _l
+
+    def get_optim_current_state(self):
+        return self.opt_obj

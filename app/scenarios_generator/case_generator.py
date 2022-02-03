@@ -41,7 +41,7 @@ class CaseGenerator():
         self.w_rej = w_rej
         self.transition_matrix = build_transition_matrix(offer_acc_prob)
 
-    def _int_uniform(self, a: int, b: int):
+    def _int_uniform(self, a: int, b: int) -> int:
         '''Generates a random number from a uniform distribution.
         ---
         params:
@@ -51,6 +51,19 @@ class CaseGenerator():
             integer random number.
         '''
         return int(random.uniform(a, b))
+
+    def init_from_event(self, e_dict: dict) -> None:
+        self.now = e_dict['reference_date_time']
+        self.deadline = e_dict['deadline']
+        self.num_vacancies = e_dict['num_vacancies']
+        self.num_remaining_in_pool = e_dict['num_remaining_in_pool']
+        self.per_impacted_list = e_dict['impacted_candidates_data']
+
+    def set_name(self, new_name: str) -> None:
+        self.name = new_name
+
+    def reset_counter(self) -> None:
+        self.counter = 0
 
     def get_dates(self) -> Tuple[datetime.datetime, datetime.datetime]:
         '''Generates random init date in year 2022 and end date. Simplified last month days logic.
@@ -143,7 +156,7 @@ class CaseGenerator():
         '''
         self.per_impacted_list.extend(impact_list)
 
-    def batch_process_generator(self, n_inv, mins):
+    def generator(self, n_inv, mins):
         '''Main method triggering the generator. Simulates probabilistically an environment.
         ---
         params:

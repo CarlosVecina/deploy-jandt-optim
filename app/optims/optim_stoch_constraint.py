@@ -15,7 +15,7 @@ SOLVER = 'glpk'
 
 
 class OptimStochConstraint(Optim, DataImpactSerializer):
-    def __init__(self, beta_mean: float, beta_var: float, solver: str = SOLVER) -> None:
+    def __init__(self, beta_mean: float, beta_var: float, solver: str = SOLVER, lose_confidence: float = 0) -> None:
         self.beta_mean=beta_mean
         self.beta_var=beta_var
         self.nbin_model = NegativeBinomial(
@@ -27,6 +27,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         self.l_per_frq = [16]
         self.dist = None
         self.solver = solver #glpk or ipopt
+        self.lose_confidence = lose_confidence
 
     def __repr__(self):
         return 'Agent Stochastic Constraint'
@@ -61,13 +62,13 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
     def forget_info(self, l: list, perc: float) -> int:
         return random.sample(l, int(len(l) * (1-perc)))
 
-    def frequency_exploitation(self, lose_confidence: float = 0) -> int:
+    def frequency_exploitation(self) -> int:
         ## try to fit a distribution uner a X certainity. If OK, then persist
         ## censored data not informative (Cox Assuption)
 
-        if lose_confidence > 0:   # exploration mutation
+        if self.lose_confidence > 0:   # exploration mutation
             ## If lose_confidence is != 0, a % of the prior obsservations are forgotten, making the confidence lower and probabily(or not, refit)
-            self.l_per_frq = self.forget_info(self.l_per_frq, lose_confidence)
+            self.l_per_frq = self.forget_info(self.l_per_frq, self.lose_confidence)
 
         _temp_l = self.l_per_frq.copy()
         _temp_l.extend(self.l_case_frq)

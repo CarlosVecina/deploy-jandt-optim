@@ -24,20 +24,6 @@ logging.basicConfig(filename='log',
 
 logger = logging.getLogger(__name__)
 
-tags_metadata = [
-    {
-        "name": "predict",
-        "description": "Operations with users. The **login** logic is also here.",
-    },
-    {
-        "name": "predict-post",
-        "description": "Manage items. So _fancy_ they have their own docs.",
-        "externalDocs": {
-            "description": "Items external docs",
-            "url": "https://fastapi.tiangolo.com/",
-        },
-    },
-]
 
 app = FastAPI(title="Job and Talent - Technical Interview",
     description="Endpoints for optimizing models",

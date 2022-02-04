@@ -13,6 +13,14 @@ NOTIFICATION_STATUS = ["ir_pending", "ir_accepted", "ir_rejected"]
 
 #transition matrix
 def build_transition_matrix(offer_acc_prob: float) -> pd.DataFrame:
+    '''Crafting the transition prob matrix
+    ---
+    params:
+        offer_acc_prob: probabilities of accept a notification
+    ---
+    returns:
+        transition_matrix: the path trans matrix
+    '''
     transition_matrix = pd.DataFrame([
         ['ir_pending', 'not_in_ft', 1],
         ['ir_accepted', 'offer_accepted', offer_acc_prob],
@@ -21,6 +29,21 @@ def build_transition_matrix(offer_acc_prob: float) -> pd.DataFrame:
         columns=['notification_status', 'offer_status', 'prob'
     ])
     return transition_matrix
+
+def est_prior_beta_params(mu: float, var: float) -> Tuple[float, float]:
+    '''Given mean and varianze, estimate Beta dist param
+    ---
+    params:
+        mu: mean beta dist
+        var: var beta dist
+    ---
+    returns;
+        alpha: alpha dist param
+        beta: beta dist param
+    '''
+    alpha = ((1.0 - mu) / var - 1.0 / mu) * mu ** 2.0
+    beta = alpha * (1 / mu - 1)
+    return alpha, beta
 
 
 class CaseGenerator():
@@ -96,11 +119,13 @@ class CaseGenerator():
             draw = choice(
                 NOTIFICATION_STATUS,
                 1,
-                p=[1-(self.w_acc+self.w_rej), self.w_acc, self.w_rej])[0]
+                p=[1-(self.w_acc+self.w_rej), self.w_acc, self.w_rej]
+                )[0]
             draw_candidate = choice(
                 self.transition_matrix[self.transition_matrix.notification_status == draw].offer_status,
                 1,
-                p=self.transition_matrix[self.transition_matrix.notification_status == draw].prob)[0]
+                p=self.transition_matrix[self.transition_matrix.notification_status == draw].prob
+                )[0]
 
             n = 1       # n samples
             k = 2.4     # shape
@@ -145,7 +170,6 @@ class CaseGenerator():
                 1,
                 p=self.transition_matrix[self.transition_matrix.notification_status == roll_notification].prob
                 )[0]
-
 
             if roll_notification == 'ir_pending':
                 roll_mins = impact['time_to_respond_ir_minutes'] + mins
@@ -209,10 +233,18 @@ class CaseGenerator():
 
 
 class ScenarioInitializer():
-    def __init__(self, n_cases):
+    def __init__(self, n_cases: int) -> None:
         self.n_cases = n_cases
 
-    def generator(self):
+    def generator(self) -> list:
+        '''Initialize n_cases scenarios to share as starting points between agents
+        ---
+        params:
+            n_cases: number of initial states to create
+        ---
+        yields:
+            req: list of initial states requests
+        '''
         for c in range(self.n_cases):
             case_suite = CaseGenerator(name=str(c), w_acc=0.1, w_rej=0.1, offer_acc_prob=0.6)
             req = [True]
@@ -225,11 +257,19 @@ class ScenarioInitializer():
 
 
 class ScenarioSimulator():
-    def __init__(self, opt_obj, case_obj):
+    def __init__(self, opt_obj, case_obj) -> None:
         self.opt_obj = opt_obj
         self.case_obj = case_obj
 
-    def generator(self, initial_scenarios):
+    def generator(self, initial_scenarios: list) -> list:
+        '''Create the scenario path given a previous state and agent interaction
+        ---
+        params:
+            initial_scenarios: list of initial states
+        ---
+        returns:
+            req: list of all the results after the interaction of the agent with the environment
+        '''
         _l=[]
         counter = 0
         ii = copy.deepcopy(initial_scenarios)
@@ -268,4 +308,6 @@ class ScenarioSimulator():
         return _l
 
     def get_optim_current_state(self):
+        '''Return the current state of the agent
+        '''
         return self.opt_obj

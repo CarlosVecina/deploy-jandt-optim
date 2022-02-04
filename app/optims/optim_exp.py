@@ -103,17 +103,16 @@ class OptimExp(Optim, DataImpactSerializer):
         '''Main funct invitation logic API
         ---
         params:
-            now: int
-            deadline
-            num_vacancies
-            num_remaining_in_pool
-            impacted_candidates_data
+            now: current datetime
+            deadline: job request deadline
+            num_vacancies:  total num of job request vacancies
+            num_remaining_in_pool: num of workers still in the pool
+            impacted_candidates_data: list of impact data
         ---
         returns:
             finished: bool if the process is end
             num_candidates_needed: number of candidates to send notification
             callback_time_minutes: minutes untill the next API call
-
         '''
         finished = now >= deadline
         fulfilled = (num_vacancies - super().get_total_contract_accepted(impacted_candidates_data)) <= 0

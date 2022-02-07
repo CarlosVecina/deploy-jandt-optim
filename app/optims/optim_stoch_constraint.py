@@ -57,7 +57,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         model_stoch.solutions.store_to(solution)
         return solution['Solution'].variable['x[1]']['Value']
 
-    def boostrap(self, q: float = 0.2) -> int:
+    def boostrap(self, q: float = 0.25) -> int:
         '''Boostraping the invitation stochastic maximization distribution.
         ---
         params:
@@ -66,7 +66,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             quantile dist value.
         '''
         _l = []
-        for _ in range(10):
+        for _ in range(50):
             _l.append(
                 int(self.stoch_optim())
                 )

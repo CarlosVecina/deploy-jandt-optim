@@ -66,7 +66,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             quantile dist value.
         '''
         _l = []
-        for _ in range(50):
+        for _ in range(15):
             _l.append(
                 int(self.stoch_optim())
                 )

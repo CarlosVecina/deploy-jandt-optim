@@ -30076,3 +30076,561 @@ OBJ : Size=1, Index=None, Active=True
 01:14:41,617 app.main INFO POST RESP False.
 01:14:54,862 uvicorn.error INFO Shutting down
 01:14:54,966 uvicorn.error INFO Finished server process [30325]
+02:04:14,423 uvicorn.error INFO Started server process [82366]
+02:04:14,423 uvicorn.error INFO Waiting for application startup.
+02:04:14,424 uvicorn.error INFO Application startup complete.
+02:04:51,0 uvicorn.error INFO Shutting down
+02:04:51,105 uvicorn.error INFO Waiting for application shutdown.
+02:04:51,105 uvicorn.error INFO Application shutdown complete.
+02:04:51,105 uvicorn.error INFO Finished server process [82366]
+02:04:53,397 uvicorn.error INFO Started server process [82402]
+02:04:53,397 uvicorn.error INFO Waiting for application startup.
+02:04:53,398 uvicorn.error INFO Application startup complete.
+02:04:58,783 app.main INFO POST REQ {'now': '2021-11-01 00:00:00', 'deadline': '2021-11-02 00:00:00', 'num_vacancies': 5, 'num_remaining_in_pool': 500, 'impacted_candidates_data': []}.
+02:04:58,786 app.main INFO POST RESP False.
+02:04:58,823 app.main INFO POST REQ {'now': '2021-11-01 00:00:00', 'deadline': '2021-11-02 00:00:00', 'num_vacancies': 5, 'num_remaining_in_pool': 500, 'impacted_candidates_data': []}.
+02:04:58,824 app.main INFO POST RESP False.
+02:04:58,831 app.main INFO POST REQ {'now': '2021-11-01 00:00:00', 'deadline': '2021-11-02 00:00:00', 'num_vacancies': 5, 'num_remaining_in_pool': 500, 'impacted_candidates_data': []}.
+02:04:58,832 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:58,833 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:58,833 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:58,833 pyomo.core DEBUG Constructing Variable x
+02:04:58,833 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:58,834 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:58,834 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:58,834 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:58,834 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:58,834 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:58,835 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:58,836 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:58,836 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:58,837 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                           : Upper : Active
+    None :   0.0 : x[2] - 0.2209609631019976*x[1] :   0.0 :   True
+
+02:04:58,837 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:58,837 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:58,837 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:58,837 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:58,837 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:58,837 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:58,837 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:58,837 pyomo.core DEBUG Constructing objective OBJ
+02:04:58,838 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,70 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpq0nt3e_h.pyomo.lp' with format cpxlp
+02:04:59,74 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmph2yv_gy0.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmp921fx8vu.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpq0nt3e_h.pyomo.lp']
+02:04:59,87 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,88 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,88 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,88 pyomo.core DEBUG Constructing Variable x
+02:04:59,88 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,88 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,88 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,88 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,89 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,89 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,89 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,90 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,90 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,90 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                           : Upper : Active
+    None :   0.0 : x[2] - 0.1708458448139809*x[1] :   0.0 :   True
+
+02:04:59,90 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,90 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,90 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,90 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,90 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,91 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,91 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,91 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,91 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,92 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpojhg934t.pyomo.lp' with format cpxlp
+02:04:59,94 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmp5pi1b0bq.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpe5ua2qz1.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpojhg934t.pyomo.lp']
+02:04:59,104 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,105 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,105 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,105 pyomo.core DEBUG Constructing Variable x
+02:04:59,105 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,105 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,105 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,105 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,105 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,105 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,105 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,107 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,107 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,107 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.22730759464987282*x[1] :   0.0 :   True
+
+02:04:59,107 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,107 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,107 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,107 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,107 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,107 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,107 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,107 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,108 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,109 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpovlc6exw.pyomo.lp' with format cpxlp
+02:04:59,109 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpj9_je7fb.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmp5f4a7a4m.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpovlc6exw.pyomo.lp']
+02:04:59,120 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,120 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,121 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,121 pyomo.core DEBUG Constructing Variable x
+02:04:59,121 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,121 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,121 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,121 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,121 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,121 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,121 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,123 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,123 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,123 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                          : Upper : Active
+    None :   0.0 : x[2] - 0.181348487418899*x[1] :   0.0 :   True
+
+02:04:59,123 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,123 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,123 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,123 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,123 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,123 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,123 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,123 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,124 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,125 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpgmfjbgkd.pyomo.lp' with format cpxlp
+02:04:59,126 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmp8dez64xg.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpe792njq1.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpgmfjbgkd.pyomo.lp']
+02:04:59,135 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,136 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,136 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,136 pyomo.core DEBUG Constructing Variable x
+02:04:59,136 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,136 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,136 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,136 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,136 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,137 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,137 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,138 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,138 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,138 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.21053304636239717*x[1] :   0.0 :   True
+
+02:04:59,138 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,138 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,138 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,138 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,138 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,139 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,139 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,139 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,139 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,140 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpap2pnxm1.pyomo.lp' with format cpxlp
+02:04:59,140 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmp0kz1r78p.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpep7dp15i.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpap2pnxm1.pyomo.lp']
+02:04:59,150 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,151 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,151 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,151 pyomo.core DEBUG Constructing Variable x
+02:04:59,151 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,151 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,151 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,152 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,152 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,152 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,152 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,153 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,153 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,153 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.17791571478448703*x[1] :   0.0 :   True
+
+02:04:59,153 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,153 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,153 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,153 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,154 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,154 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,154 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,154 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,154 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,155 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpehyfzruk.pyomo.lp' with format cpxlp
+02:04:59,156 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpkjz613wg.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmptw8bivtw.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpehyfzruk.pyomo.lp']
+02:04:59,166 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,166 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,166 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,166 pyomo.core DEBUG Constructing Variable x
+02:04:59,167 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,167 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,167 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,167 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,167 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,167 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,167 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,168 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,168 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,168 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.19859406794880724*x[1] :   0.0 :   True
+
+02:04:59,169 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,169 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,169 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,169 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,169 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,169 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,169 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,169 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,169 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,170 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpctk2j6cx.pyomo.lp' with format cpxlp
+02:04:59,171 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpotcwg49h.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpazjkzilb.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpctk2j6cx.pyomo.lp']
+02:04:59,181 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,182 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,182 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,182 pyomo.core DEBUG Constructing Variable x
+02:04:59,182 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,182 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,182 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,182 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,183 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,183 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,183 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,184 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,184 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,184 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.18174804210294368*x[1] :   0.0 :   True
+
+02:04:59,184 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,184 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,184 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,184 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,184 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,185 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,185 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,185 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,185 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,187 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpsdkwt66v.pyomo.lp' with format cpxlp
+02:04:59,188 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpbm9h1ptw.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmp8dj31tkw.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpsdkwt66v.pyomo.lp']
+02:04:59,199 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,200 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,200 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,200 pyomo.core DEBUG Constructing Variable x
+02:04:59,200 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,200 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,200 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,200 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,200 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,200 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,201 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,202 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,202 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,202 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.18737920820681606*x[1] :   0.0 :   True
+
+02:04:59,202 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,202 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,202 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,202 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,202 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,202 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,203 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,203 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,203 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,204 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpsn6z4z2f.pyomo.lp' with format cpxlp
+02:04:59,205 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpmkyv8z6a.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpmi7zr_qj.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpsn6z4z2f.pyomo.lp']
+02:04:59,215 pyomo.core DEBUG Constructing ConcreteModel 'ConcreteModel', from data=None
+02:04:59,216 pyomo.core DEBUG Constructing Set, name=OrderedScalarSet, from data=None
+02:04:59,216 pyomo.core DEBUG Constructing IndexedVar 'x' on [Model] from data=None
+02:04:59,216 pyomo.core DEBUG Constructing Variable x
+02:04:59,216 pyomo.core DEBUG Constructed component ''[Model].x'':
+x : Size=2, Index=x_index
+    Key : Lower : Value : Upper : Fixed : Stale : Domain
+      1 :     0 :  None :  None : False :  True : NonNegativeIntegers
+      2 :     0 :  None :  None : False :  True : NonNegativeIntegers
+
+02:04:59,216 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint1' on [Model] from data=None
+02:04:59,216 pyomo.core DEBUG Constructing constraint Constraint1
+02:04:59,217 pyomo.core DEBUG Constructed component ''[Model].Constraint1'':
+Constraint1 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[1] : 500.0 :   True
+
+02:04:59,217 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint2' on [Model] from data=None
+02:04:59,217 pyomo.core DEBUG Constructing constraint Constraint2
+02:04:59,217 pyomo.core DEBUG Constructed component ''[Model].Constraint2'':
+Constraint2 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[1] :  +Inf :   True
+
+02:04:59,218 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint3' on [Model] from data=None
+02:04:59,218 pyomo.core DEBUG Constructing constraint Constraint3
+02:04:59,218 pyomo.core DEBUG Constructed component ''[Model].Constraint3'':
+Constraint3 : Size=1, Index=None, Active=True
+    Key  : Lower : Body                            : Upper : Active
+    None :   0.0 : x[2] - 0.16327937513833324*x[1] :   0.0 :   True
+
+02:04:59,218 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint4' on [Model] from data=None
+02:04:59,218 pyomo.core DEBUG Constructing constraint Constraint4
+02:04:59,218 pyomo.core DEBUG Constructed component ''[Model].Constraint4'':
+Constraint4 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -Inf : x[2] :  +Inf :   True
+
+02:04:59,219 pyomo.core DEBUG Constructing AbstractScalarConstraint 'Constraint5' on [Model] from data=None
+02:04:59,219 pyomo.core DEBUG Constructing constraint Constraint5
+02:04:59,219 pyomo.core DEBUG Constructed component ''[Model].Constraint5'':
+Constraint5 : Size=1, Index=None, Active=True
+    Key  : Lower : Body : Upper : Active
+    None :  -1.0 : x[2] :  +Inf :   True
+
+02:04:59,219 pyomo.core DEBUG Constructing ScalarObjective 'OBJ' on [Model] from data=None
+02:04:59,219 pyomo.core DEBUG Constructing objective OBJ
+02:04:59,219 pyomo.core DEBUG Constructed component ''[Model].OBJ'':
+OBJ : Size=1, Index=None, Active=True
+    Key  : Active : Sense    : Expression
+    None :   True : maximize : 2000*x[2] - 20*x[1]
+
+02:04:59,221 pyomo.core DEBUG Writing model 'unknown' to file '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpvfkwgs9a.pyomo.lp' with format cpxlp
+02:04:59,222 pyomo.opt DEBUG Running ['/usr/local/bin/glpsol', '--write', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpm3a3c42d.glpk.raw', '--wglp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpu7atbpj7.glpk.glp', '--cpxlp', '/var/folders/rd/q4m7jhz550n6rj03zv1ph8rh0000gn/T/tmpvfkwgs9a.pyomo.lp']
+02:04:59,232 app.main INFO POST RESP False.
+02:05:08,626 uvicorn.error INFO Shutting down
+02:05:08,730 uvicorn.error INFO Finished server process [82402]

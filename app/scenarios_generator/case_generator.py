@@ -52,11 +52,13 @@ class CaseGenerator():
         name: str = "1",
         w_acc: float = 0.1,
         w_rej: float = 0.1,
-        offer_acc_prob: float = 0.6
+        offer_acc_prob: float = 0.6,
+        param_pool: int = 400,
+        param_vacancies: int = 9
         ) -> None:
         self.name = name
-        self.remaining_pool = skellam.rvs(200, 50, size=1)[0]
-        self.num_vacancies = skellam.rvs(9, 2, size=1)[0]
+        self.remaining_pool = skellam.rvs(param_pool, int(param_pool*0.2), size=1)[0]
+        self.num_vacancies = skellam.rvs(param_vacancies, int(param_vacancies*0.2), size=1)[0]
         self.init_date, self.deadline = self.get_dates()
         self.now = self.init_date
         self.counter = 0
@@ -119,13 +121,11 @@ class CaseGenerator():
             draw = choice(
                 NOTIFICATION_STATUS,
                 1,
-                p=[1-(self.w_acc+self.w_rej), self.w_acc, self.w_rej]
-                )[0]
+                p=[1-(self.w_acc+self.w_rej), self.w_acc, self.w_rej])[0]
             draw_candidate = choice(
                 self.transition_matrix[self.transition_matrix.notification_status == draw].offer_status,
                 1,
-                p=self.transition_matrix[self.transition_matrix.notification_status == draw].prob
-                )[0]
+                p=self.transition_matrix[self.transition_matrix.notification_status == draw].prob)[0]
 
             n = 1       # n samples
             k = 2.4     # shape
@@ -156,15 +156,12 @@ class CaseGenerator():
                 continue
             else:
                 pass
-            act_acc = 1/impact['time_to_respond_ir_minutes'] * self.w_acc
-            act_rej = 1/impact['time_to_respond_ir_minutes'] * self.w_rej
             roll_notification = choice(
                 NOTIFICATION_STATUS, 1,
-                p=[
-                    1-(act_acc+act_rej),
-                    act_acc,
-                    act_rej
-                ])[0]
+                p=[1-(self.w_acc+self.w_rej),
+                self.w_acc,
+                self.w_rej]
+                )[0]
             roll_offer = choice(
                 self.transition_matrix[self.transition_matrix.notification_status == roll_notification].offer_status,
                 1,

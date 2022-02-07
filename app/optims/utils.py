@@ -33,8 +33,7 @@ class DataImpactSerializer():
 
     @staticmethod
     def get_n_first_accepted(impact_data: list) -> int:
-        """
-        Count the trials before an accepted
+        """Count the trials before an accepted
         ---
         params:
             impact_data: list of impacts
@@ -51,8 +50,7 @@ class DataImpactSerializer():
 
     @staticmethod
     def get_t_response_accepted(impact_data: list) -> list:
-        """
-        Extract the avg response time for accepted
+        """Extract the avg response time for accepted
         ---
         params:
             impact_data: list of impacts
@@ -67,8 +65,7 @@ class DataImpactSerializer():
 
     @staticmethod
     def get_avg_t_response_accepted(impact_data: list, default: int) -> int:
-        """
-        Extract the avg response time for accepted
+        """Extract the avg response time for accepted
         ---
         params:
             impact_data: list of impacts
@@ -89,8 +86,7 @@ class DataImpactSerializer():
 
     @staticmethod
     def get_total_contract_accepted(impact_data: list) -> int:
-        """
-        Extract the total contract accepted ir_contract_accepted
+        """Extract the total contract accepted ir_contract_accepted
         ---
         params:
             impact_data: list of impacts

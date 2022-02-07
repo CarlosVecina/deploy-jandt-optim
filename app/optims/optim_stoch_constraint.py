@@ -29,6 +29,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         self.solver = solver #glpk or ipopt
         self.lose_confidence = lose_confidence
         self.num_remaining_in_pool = None
+        self.num_remaining_vacancies = None
 
     def __repr__(self):
         return 'Agent Stochastic Constraint'
@@ -45,7 +46,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         model_stoch.Constraint1 = pyo.Constraint(expr=model_stoch.x[1] <= self.num_remaining_in_pool)
         model_stoch.Constraint2 = pyo.Constraint(expr=model_stoch.x[1] >= -1)
         model_stoch.Constraint3 = pyo.Constraint(expr=model_stoch.x[2] == model_stoch.x[1] * self.nbin_model.rvs()[0])
-        model_stoch.Constraint4 = pyo.Constraint(expr=model_stoch.x[2] <= 10)  # TODO: refactor object and constraints
+        model_stoch.Constraint4 = pyo.Constraint(expr=model_stoch.x[2] <= self.num_remaining_vacancies)  # TODO: refactor object and constraints
         model_stoch.Constraint5 = pyo.Constraint(expr=model_stoch.x[2] >= -1)
 
         model_stoch.OBJ = pyo.Objective(expr=PROFIT_VACANCY*model_stoch.x[2] - COST_SPAM*model_stoch.x[1], sense=pyo.maximize)
@@ -56,7 +57,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         model_stoch.solutions.store_to(solution)
         return solution['Solution'].variable['x[1]']['Value']
 
-    def boostrap(self, q: float = 0.3) -> int:
+    def boostrap(self, q: float = 0.2) -> int:
         '''Boostraping the invitation stochastic maximization distribution.
         ---
         params:
@@ -69,7 +70,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             _l.append(
                 int(self.stoch_optim())
                 )
-        return max(5, np.quantile(_l, q))
+        return max(int(q*10), np.quantile(_l, q))
 
     def forget_info(self, _l: list, perc: float) -> int:
         '''Force to forget % of pseudo-persisted agent memory.
@@ -97,7 +98,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         _temp_l.extend(self.l_case_frq)
 
         freq = int(np.median(_temp_l))
-        if (len(_temp_l) % 5 == 0) & (len(_temp_l) > 28):
+        if (len(_temp_l) % 10 == 0) & (len(_temp_l) > 28):
             dist = distfit()
             self.dist = dist
             self.dist.fit_transform(np.array(_temp_l))

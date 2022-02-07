@@ -9,7 +9,7 @@ from .utils import DataImpactSerializer
 
 
 class OptimExp(Optim, DataImpactSerializer):
-    def __init__(self, is_decay: bool) -> None:
+    def __init__(self, is_decay: bool = False) -> None:
         self.is_decay = is_decay
 
     def __repr__(self) -> str:

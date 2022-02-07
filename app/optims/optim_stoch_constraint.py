@@ -9,7 +9,7 @@ import random
 from .homework import Optim, NegativeBinomial
 from .utils import DataImpactSerializer
 
-PROFIT_VACANCY = 2000
+PROFIT_VACANCY = 2500
 COST_SPAM = 20
 SOLVER = 'glpk'
 
@@ -70,7 +70,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             _l.append(
                 int(self.stoch_optim())
                 )
-        return max(5, np.quantile(_l, q))
+        return max(int(0.1*q), np.quantile(_l, q))
 
     def forget_info(self, _l: list, perc: float) -> int:
         '''Force to forget % of pseudo-persisted agent memory.

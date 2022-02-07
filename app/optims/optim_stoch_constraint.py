@@ -141,6 +141,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             self.nbin_model.update(post)
 
         finished = now >= deadline
+        self.num_remaining_vacancies = (num_vacancies - super().get_total_contract_accepted(impacted_candidates_data))
         fulfilled = (num_vacancies - super().get_total_contract_accepted(impacted_candidates_data)) <= 0
         if finished | fulfilled | (num_remaining_in_pool <= 0):
             num_candidates_needed, callback_time_minutes = [0, 0]

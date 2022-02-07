@@ -229,6 +229,7 @@ class CaseGenerator():
         pass
 
 
+
 class ScenarioInitializer():
     def __init__(self, n_cases: int) -> None:
         self.n_cases = n_cases

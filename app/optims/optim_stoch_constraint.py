@@ -57,7 +57,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
         model_stoch.solutions.store_to(solution)
         return solution['Solution'].variable['x[1]']['Value']
 
-    def boostrap(self, q: float = 0.25) -> int:
+    def boostrap(self, q: float = 0.3) -> int:
         '''Boostraping the invitation stochastic maximization distribution.
         ---
         params:
@@ -70,7 +70,7 @@ class OptimStochConstraint(Optim, DataImpactSerializer):
             _l.append(
                 int(self.stoch_optim())
                 )
-        return max(int(q*10), np.quantile(_l, q))
+        return max(5, np.quantile(_l, q))
 
     def forget_info(self, _l: list, perc: float) -> int:
         '''Force to forget % of pseudo-persisted agent memory.
